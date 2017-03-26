@@ -106,9 +106,13 @@ body {
 #left-infobar {
 	background: #2256aa;
 	margin-top: 55px;
-	width: 15%;
-	height: 100%;
 	position: fixed;
+	font-size: 107px;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	margin: 50 0 0 0;
 }
 
 #clock {
