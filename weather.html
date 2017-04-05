@@ -1,0 +1,182 @@
+
+<html>
+	
+	<head>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+
+
+
+	<title> Titel </title>
+		<link rel="stylesheet" type="text/css" href="css/weather.css">
+	</head>
+	
+	<body>
+		<div id="background">
+			<div id="left-infobar">
+				
+				<div id="header">
+					<h1> See your local weather </h1>
+					<h3> By Louis Paul </h3>		
+				</div>
+				
+			</div>
+				
+			<div id="weathery">
+			
+				<div id="weather-container">
+				
+					<p id="city" style="display:inline"> City </p>
+					<p id="country" style="display:inline"> Country </p>
+					<p id="weather"> Weather </p>
+					<p id="temp"> Temperature </p>
+					<p id="image"><img src="images/projects/weather/test.png"></p>
+					<p id="windspeed"> Windspeed </p>
+				
+				</div>
+			</div>
+		</div>
+		
+		<p id="fail"></p>
+			
+		
+<script>
+$(document).ready(function(){
+
+	
+	
+	var lat;
+	var lon;
+	var ok = false;
+	
+	$.getJSON("http://ip-api.com/json",function(apicontent){
+		lat = apicontent.lat;
+		lon = apicontent.lon;
+		
+			var api = "http://api.openweathermap.org/data/2.5/weather?lat="+lat+"&lon="+lon+"&appid=3813aaba8b36dd2d8348afb5653e4a76";
+			
+			$.getJSON(api, function(jsoncontent){
+				//alert(jsoncontent.name);
+				var windspeed = document.getElementById("windspeed");
+				var country = document.getElementById("country");
+				var city = document.getElementById("city");
+				var weather = document.getElementById("weather");
+				var temp = document.getElementById("temp");
+				var image = document.getElementById("image");
+				var x = jsoncontent.weather[0].id;
+				var tempc = Math.round((jsoncontent.main.temp-273.15)*100)/100;
+				var bg = document.body.style.background;
+				var baggy = document.getElementById("background");
+				
+				windspeed.innerHTML = "Wind: "+jsoncontent.wind.speed+" m/s";
+				country.innerHTML = jsoncontent.sys.country;
+				city.innerHTML = jsoncontent.name+",";
+				weather.innerHTML = jsoncontent.weather[0].description;
+				temp.innerHTML = tempc+"&deg;C"; //Standart: Kelvin
+				
+				if(x >= 200 && x <= 202){
+					image.innerHTML = "<img src="+"images/projects/weather/thunderstorms01.png>";
+				}
+				else if (x >= 210 && x <=221){
+					image.innerHTML = "<img src="+"images/projects/weather/thunderstorms02.png>";
+				}
+				else if (x >= 230 && x <=232){
+					image.innerHTML = "<img src="+"images/projects/weather/thunderstorms01.png>";
+				}
+				else if (x >= 300 && x <=321){
+					image.innerHTML = "<img src="+"images/projects/weather/flurries.png>";
+				}
+				else if (x >= 500 && x <=531){
+					image.innerHTML = "<img src="+"images/projects/weather/rain02.png>";
+				}
+				else if (x >= 600 && x <=622){
+					image.innerHTML = "<img src="+"images/projects/weather/snow01.png>";
+				}
+				else if (x >= 701 && x <=781){
+					image.innerHTML = "<img src="+"images/projects/weather/fog.png>";
+				}
+				else if (x === 800){
+					image.innerHTML = "<img src="+"images/projects/weather/clear.png>";
+				}
+				else if (x >= 801 && x <=804){
+					image.innerHTML = "<img src="+"images/projects/weather/partlysunny.png>";
+				}
+				else if (x >= 900 && x <=902){
+					image.innerHTML = "<img src="+"images/projects/weather/windy.png>";
+				}
+				else if (x === 903){
+					image.innerHTML = "<img src="+"images/projects/weather/cold01.png>";
+				}
+				else if (x === 904){
+					image.innerHTML = "<img src="+"images/projects/weather/hot01.png>";
+				}
+				else if (x === 905){
+					image.innerHTML = "<img src="+"images/projects/weather/windy.png>";
+				}
+				else if (x === 906){
+					image.innerHTML = "<img src="+"images/projects/weather/sleet.png>";
+				}
+				else if (x >= 951 && x <=955){
+					image.innerHTML = "<img src="+"images/projects/weather/clear.png>";
+				}
+				else if (x >= 956 && x <=959){
+					image.innerHTML = "<img src="+"images/projects/weather/windy.png>";
+				}
+				else if (x >= 960){
+					image.innerHTML = "<img src="+"images/projects/weather/thunderstorms01.png>";
+				}
+		
+				
+				if(tempc > 35){
+					document.body.style.backgroundImage = "url("+"images/projects/weather/background/veryhot.jpg)";
+				}
+				else if(tempc > 22){
+					document.body.style.backgroundImage = "url("+"images/projects/weather/background/hot.jpg)";
+				}
+				else if(tempc > 10){
+					document.body.style.backgroundImage = "url("+"images/projects/weather/background/warm.jpg)";
+				}
+				else if(tempc > 0){
+					document.body.style.backgroundImage = "url("+"images/projects/weather/background/cold.jpg)";
+				}
+				if(tempc <= 0){
+					document.body.style.backgroundImage = "url("+"images/projects/weather/background/freezing.jpg)";
+				}
+				
+				document.body.style.backgroundSize = window.innerWidth+"px"+" "+window.innerHeight+"px";
+				console.log(window.innerHeight);
+				
+				var addEvent = function(object, type, callback) {
+					if (object == null || typeof(object) == 'undefined') return;
+					if (object.addEventListener) {
+						object.addEventListener(type, callback, false);
+					} else if (object.attachEvent) {
+						object.attachEvent("on" + type, callback);
+					} else {
+						object["on"+type] = callback;
+					}
+				};
+				
+				addEvent(window, "resize", function(event) {
+					document.body.style.backgroundSize = window.innerWidth+"px"+" "+window.innerHeight+"px";
+					console.log('resized');
+				});
+						
+		  });
+		/*	
+			if (ok === false){
+			document.getElementById("fail") = "If you see this message, your browser blocked something here. <br> If you have Ad-Blocker enabled, please deactivate it and refresh the page!";
+		}*/		  
+	});
+
+		
+	
+});			
+</script>		
+	
+
+
+	
+	</body>
+
+
+</html>

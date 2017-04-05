@@ -23,9 +23,3 @@ h1{
 	margin-left: auto;
 	margin-right: auto;
 }
-
-@media only screen and (max-width: 1278px){
-	body {
-		background-color: yellow !important;
-	}
-}
