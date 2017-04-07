@@ -10,6 +10,10 @@ body {
 	margin:0;
 }
 
+#header{
+	color: #b9dcea;
+	opacity: 0.1;
+}
 
 #weathery {
 	margin-left: 200px;
