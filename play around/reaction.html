@@ -8,46 +8,62 @@
 <body>
 
 	<h1> Test Your Reactions </h1>
-	<h3> Your Time: </h3><p id="time"></p>
-	<h3> Avg. Time: </h3><p id="avgt"></p>
+	<h3> Your Time: </h3><p id="time">00:00:00</p><br />
+	<h3> Score: </h3><p id="score">NaN</p><br />
+	<h3> Avg. Time: </h3><p id="avgt">NaN</p><br />
 	<button id="go">go</button>
 	<div id="playground" style="border:1px solid #c3c3c3; position:fixed">
 	</div>
 
 <style>
+		
 		.circle{
 			height: 50px;
 			border-radius: 50px;
 			float: left;
 			background-color: green;
 		}
+		
+		h3, p{
+			display:inline-block;
+		}
+		
 </style>
 
 <script>
 	/*
 	** Setting up variables
 	*/
-	var container = document.getElementById("playground");
-	var button = document.getElementById("go");
-	var sizeW = 550; // will be changed by input later
-	var sizeH = 550; // will be changed by input later
-	var offTop = 0; //offset TOP
-	var offLeft = 0; //offset Left
-	var rTop = 0; //initializing the variable for random left and right...
-	var rLeft = 0;//... to give them a value later on
-	var standart = 50;//variable, for now, to set the width and height of the elements
-	var spawned = 0;//total number of spawned elements
+	var container = document.getElementById("playground"),
+		button = document.getElementById("go"),
+		td = document.getElementById("time"),
+		score = document.getElementById("score"),
+		average = document.getElementById("avgt"),
+		gameScore = 0;
+		sizeW = 550, // will be changed by input later
+		sizeH = 550, // will be changed by input later
+		offTop = 0, //offset TOP
+		offLeft = 0, //offset Left
+		rTop = 0, //initializing the variable for random left and right...
+		rLeft = 0,//... to give them a value later on
+		standart = 50,//variable, for now, to set the width and height of the elements
+		spawned = 0,//total number of spawned elements
+		time = 0,
+		msec = 0,
+		seconds = 0,
+		minutes = 0,
+		hours = 0;
 	
 			container.setAttribute("style","width; height; background-color;"); //this block here will "manipulate" the div
 			container.style.width = sizeW+"px"; 
 			container.style.height = sizeH+"px";
 			container.style.backgroundColor = "red";
-			console.log(rTop+" "+rLeft);
 	
 	button.onclick = function startGame() //yeah, this is a little bit useless
 		{
 			
 			getOffset();
+			theTime()
 			
 		}
 		
@@ -56,7 +72,7 @@
 			offTop = container.offsetTop; //gets the div offset to the top of the page
 			offLeft = container.offsetLeft; //same. in this case its the left of the page
 			
-			console.log(offTop+" "+offLeft)
+			
 			
 			letsGo()
 			
@@ -70,13 +86,24 @@
 		}
 		
 		function spawn(){
+				//The mighty RANDOMISIERER
+				//Form
+				//Color
+				var morange = "#f2930e",
+					mlblue = "#0ddce0",
+					mdblue = "#0e1087",
+					mblue = "#1262e2",
+					myellow = "#f3f700",
+					mgreen = "#077c2a",
+					colors = [morange, mlblue, mdblue, mblue, myellow, mgreen],
+					colorpick = Math.floor(Math.random()*colors.length);
+				console.log("color "+colorpick);
+				//Position
 				rTop = Math.floor(Math.random() * (sizeH-0)+0) -standart/2; //actually this was meant to randomly spawn divs...
 				rLeft = Math.floor(Math.random() * (sizeW-0)+0) -standart/2;//... it's working but not as i wanted. Gotta look into that later
 				//now a new element will be spawned (atm they are circles)
-				container.innerHTML += "<div class=\"circle\"  id=\""+spawned+"\" style=\"width:"+standart+"px;height:"+standart+"px;margin-top:"+rTop+"px;margin-left:"+rLeft+"px;position:fixed;display:inline;\" onclick=\"DeleteIt("+spawned+")\"></div>"
-				console.log("loaded"+"T"+rTop+"L"+rLeft);
+				container.innerHTML += "<div class=\"circle\"  id=\""+spawned+"\" style=\"width:"+standart+"px;height:"+standart+"px;margin-top:"+rTop+"px;margin-left:"+rLeft+"px;position:fixed;display:inline;background-color:"+colors[colorpick]+";\" onclick=\"DeleteIt("+spawned+")\"></div>"
 				spawned++;
-				console.log(spawned);
 			}
 		
 		function DeleteIt(myid){
@@ -84,10 +111,45 @@
 			var circle = document.getElementById(myid); 
 			circle.setAttribute("style","display;");
 			this.style = "display:none";
-			console.log("yo");
+			gameScore++;
+			score.innerHTML = gameScore;
 			letsGo();
+			averageTime();
 		
 		}
+		
+		// get Times
+		
+		function timeAdd(){
+		
+			seconds++;
+			if (seconds >= 60) {
+				seconds = 0;
+				minutes++;
+				if (minutes >= 60) {
+					hours++;
+				}
+			}
+			
+			
+			td.textContent = (hours ? (hours > 9 ? hours : "0" + hours) : "00") + ":" + (minutes ? (minutes > 9 ? minutes : "0" + minutes) : "00") + ":" + (seconds > 9 ? seconds : "0" + seconds);
+
+			theTime();
+		
+		}
+		
+		function theTime(){
+			
+			time = setTimeout(timeAdd,1000);
+						
+		}
+		
+		function averageTime(){
+		
+			average.innerHTML = Math.round(seconds/gameScore * 100) / 100;
+		
+		}
+		
 		
 </script>
 </body>
