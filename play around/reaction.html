@@ -29,22 +29,22 @@
 	*/
 	var container = document.getElementById("playground");
 	var button = document.getElementById("go");
-	var sizeW = 550;
-	var sizeH = 550;
-	var offTop = 0; //stores the div offsetTop
-	var offLeft = 0; //stores the div offsetLeft
+	var sizeW = 550; // will be changed by input later
+	var sizeH = 550; // will be changed by input later
+	var offTop = 0; //offset TOP
+	var offLeft = 0; //offset Left
 	var rTop = 0; //initializing the variable for random left and right...
 	var rLeft = 0;//... to give them a value later on
-	var standart = 50;
-	var spawned = 0;
+	var standart = 50;//variable, for now, to set the width and height of the elements
+	var spawned = 0;//total number of spawned elements
 	
-			container.setAttribute("style","width; height; background-color;");
-			container.style.width = sizeW+"px";
+			container.setAttribute("style","width; height; background-color;"); //this block here will "manipulate" the div
+			container.style.width = sizeW+"px"; 
 			container.style.height = sizeH+"px";
 			container.style.backgroundColor = "red";
 			console.log(rTop+" "+rLeft);
 	
-	button.onclick = function startGame()
+	button.onclick = function startGame() //yeah, this is a little bit useless
 		{
 			
 			getOffset();
@@ -53,8 +53,8 @@
 		
 		function getOffset(){
 			
-			offTop = container.offsetTop;
-			offLeft = container.offsetLeft;
+			offTop = container.offsetTop; //gets the div offset to the top of the page
+			offLeft = container.offsetLeft; //same. in this case its the left of the page
 			
 			console.log(offTop+" "+offLeft)
 			
@@ -63,24 +63,25 @@
 		}
 		
 		function letsGo(){
-		
+			//here you can see the first test code. Not sure if I'll need it... so it can stay... for now
 			//container.innerHTML = "<div class=\"circle\" id=\"1\" style=\"width:\""+standart+"px;height:\" "+standart+"px;margin-left:\" "+rLeft+"px;margin-top:\" "+rTop+"px\"></div>"
 			spawn();
 		
 		}
 		
 		function spawn(){
-				rTop = Math.floor(Math.random() * (sizeH-0)+0) -standart/2;
-				rLeft = Math.floor(Math.random() * (sizeW-0)+0) -standart/2;
-				container.innerHTML += "<div class=\"circle\"  id=\""+spawned+"\" style=\"width:"+standart+"px;height:"+standart+"px;margin-top:"+rTop+"px;margin-left:"+rLeft+"px;position:fixed;display:inline;\" onclick=\"deleteIt()\"></div>"
+				rTop = Math.floor(Math.random() * (sizeH-0)+0) -standart/2; //actually this was meant to randomly spawn divs...
+				rLeft = Math.floor(Math.random() * (sizeW-0)+0) -standart/2;//... it's working but not as i wanted. Gotta look into that later
+				//now a new element will be spawned (atm they are circles)
+				container.innerHTML += "<div class=\"circle\"  id=\""+spawned+"\" style=\"width:"+standart+"px;height:"+standart+"px;margin-top:"+rTop+"px;margin-left:"+rLeft+"px;position:fixed;display:inline;\" onclick=\"DeleteIt("+spawned+")\"></div>"
 				console.log("loaded"+"T"+rTop+"L"+rLeft);
 				spawned++;
 				console.log(spawned);
 			}
 		
-		function deleteIt(){
-		
-			var circle = document.getElementById("0");
+		function DeleteIt(myid){
+				
+			var circle = document.getElementById(myid); 
 			circle.setAttribute("style","display;");
 			this.style = "display:none";
 			console.log("yo");
