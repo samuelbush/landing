@@ -1,0 +1,82 @@
+<html>
+<head>
+	<title>JavaScript</title>
+</head>
+<body>
+	
+	<p> Add your own stuff into the Array </p>
+	<input id="input" type="text" placeholder="Your Array Here..."></input>
+	<button id="button">press me</button><br />
+	<p id="numbers"></p>
+	<div id="delete"></div>
+	<form>
+		<input type="radio" id="b0" name="x">Create a new Array</input><br />
+		<input type="radio" id="b1" name="x" checked>Use the "main" Array</input><br />
+	</form>
+	<p id="oArr" class="yo">  </p><br />
+	<p id="nArr" class="yo">  </p>
+	
+	
+	<style>
+	</style>
+	
+	<script text="text/javascript">
+		document.getElementById("delete").innerHTML = "<p> You could also delete Elements. Which one do you want to delete?</p>"+"<br />"
+													  +"<select name=\"deleto\" id=\"deleto\">"
+													  +"</select>"+"<br />"+"<button id=\"deleteIt\">DELETE!</button>";				
+		
+		var myArray = new Array();
+		    myArray[0] = "pizza";
+		    myArray[1] = "azzip";
+		var multiArray = [" water"," bread"," wine"];
+		var aki;
+		var elements;
+		
+		var button = document.getElementById("button");
+		var button2 = document.getElementById("deleteIt");
+		var input = document.getElementById("input");
+		var original = document.getElementById("oArr");
+		var newA = document.getElementById("nArr");
+	
+		button.onclick = function addArray(){
+			
+			if(input.value.length > 0){
+				if(document.getElementById("b0").checked){
+					newA.innerHTML += input.value+"<br />";
+				}
+				else {
+				elements = 0;
+				aki = multiArray.concat(input.value.split(","));
+				original.innerHTML += aki+"<br />";
+				document.getElementById("numbers").innerHTML = "There are currently "+aki.length+++" Elements in this Array";
+				
+				next1();
+				}
+				
+				function next1() {
+					for(x=0; x<aki.length; x++){
+						document.getElementById("deleto").innerHTML += "<option value="+x+">"+x+"</option>";
+						elements += 1;
+					}
+				}	
+			}
+			else{
+				alert("please type at least something")
+			}
+			
+		}
+		
+		button2.onclick =function deleteStuff(){
+			aki.splice(elements,0);
+			
+			
+			
+			original.innerHTML += aki+"<br />";
+			
+			
+			
+			console.log(elements);
+		}
+	</script>
+</body>
+</html>

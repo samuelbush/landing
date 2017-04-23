@@ -1,0 +1,26 @@
+<html>
+<head>
+	<title>JavaScript</title>
+</head>
+<body>
+	
+	<input type="text" id="input" placeholder="text in here..."></input>
+	<button id="button">Change the text!</button>
+	<p id="text"> This is some text!</p>
+	
+	<style>
+		
+	</style>
+	
+	<script>
+		var hi;
+		var button = document.getElementById("button");
+		var text = document.getElementById("text");
+		var input = document.getElementById("input");
+		button.onclick = function change(){
+			console.log("ttt");
+			text.innerHTML = input.value;
+		}
+	</script>
+</body>
+</html>

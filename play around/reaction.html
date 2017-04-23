@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title></title>
+</head>
+
+<body>
+
+	<h1> Test Your Reactions </h1>
+	<h3> Your Time: </h3><p id="time"></p>
+	<h3> Avg. Time: </h3><p id="avgt"></p>
+	<button id="go">go</button>
+	<div id="playground" style="border:1px solid #c3c3c3; position:fixed">
+	</div>
+
+<style>
+		.circle{
+			height: 50px;
+			border-radius: 50px;
+			float: left;
+			background-color: green;
+		}
+</style>
+
+<script>
+	/*
+	** Setting up variables
+	*/
+	var container = document.getElementById("playground");
+	var button = document.getElementById("go");
+	var sizeW = 550;
+	var sizeH = 550;
+	var offTop = 0; //stores the div offsetTop
+	var offLeft = 0; //stores the div offsetLeft
+	var rTop = 0; //initializing the variable for random left and right...
+	var rLeft = 0;//... to give them a value later on
+	var standart = 50;
+	var spawned = 0;
+	
+			container.setAttribute("style","width; height; background-color;");
+			container.style.width = sizeW+"px";
+			container.style.height = sizeH+"px";
+			container.style.backgroundColor = "red";
+			console.log(rTop+" "+rLeft);
+	
+	button.onclick = function startGame()
+		{
+			
+			getOffset();
+			
+		}
+		
+		function getOffset(){
+			
+			offTop = container.offsetTop;
+			offLeft = container.offsetLeft;
+			
+			console.log(offTop+" "+offLeft)
+			
+			letsGo()
+			
+		}
+		
+		function letsGo(){
+		
+			//container.innerHTML = "<div class=\"circle\" id=\"1\" style=\"width:\""+standart+"px;height:\" "+standart+"px;margin-left:\" "+rLeft+"px;margin-top:\" "+rTop+"px\"></div>"
+			spawn();
+		
+		}
+		
+		function spawn(){
+				rTop = Math.floor(Math.random() * (sizeH-0)+0) -standart/2;
+				rLeft = Math.floor(Math.random() * (sizeW-0)+0) -standart/2;
+				container.innerHTML += "<div class=\"circle\"  id=\""+spawned+"\" style=\"width:"+standart+"px;height:"+standart+"px;margin-top:"+rTop+"px;margin-left:"+rLeft+"px;position:fixed;display:inline;\" onclick=\"deleteIt()\"></div>"
+				console.log("loaded"+"T"+rTop+"L"+rLeft);
+				spawned++;
+				console.log(spawned);
+			}
+		
+		function deleteIt(){
+		
+			var circle = document.getElementById("0");
+			circle.setAttribute("style","display;");
+			this.style = "display:none";
+			console.log("yo");
+			letsGo();
+		
+		}
+		
+</script>
+</body>
+
+</html>

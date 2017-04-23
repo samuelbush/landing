@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title> How many fingers am i holding up? </title>
+</head>
+
+<body>
+	<p> How many fingers am I holding up?</p>
+	<p> Take a guess: </p> <input type="text" id="input" placeholder="Numbers from 1 to 5" style="width:125px; border-radius:5px"></input> <button id="button" style="border-radius:5px">Go!</button>
+	<p id="result"></p>
+	
+	<script>
+		var button = document.getElementById("button");
+		var input = document.getElementById("input");
+		var result = document.getElementById("result");
+		var rnd;
+		button.onclick = function guess(){
+			rnd = Math.floor(Math.random() * (6 - 1) + 1);
+			if(input.value == rnd){
+			console.log("right");
+			alert("You are right! My number was: "+rnd);
+			result.innerHTML += "You are right! My number was: "+rnd+"<br />";
+			} else {
+			alert("Nope! My number was: "+rnd);
+			result.innerHTML += "Nope! My number was: "+rnd+"<br />";
+			console.log("wrong");
+			}
+		}
+	</script>
+</body>
+
+</html>

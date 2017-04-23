@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title> How many fingers am i holding up? </title>
+</head>
+
+<body>
+	<p> How many fingers are you holding up?</p>
+	<p> Your number: </p> <input type="text" id="input" placeholder="Numbers from 1 to 5" style="width:125px; border-radius:5px"></input> <button id="button" style="border-radius:5px">Go!</button>
+	<p id="result"></p>
+	
+	<script>
+		var button = document.getElementById("button");
+		var input = document.getElementById("input");
+		var result = document.getElementById("result");
+		var rnd;
+		button.onclick = function guess(){
+			
+			var correct = false;
+			var guess = 0;
+			var guesses = 1;
+			
+			if (input.value >0 && input.value <6){ 
+				while (correct == false){
+					guess = Math.floor(Math.random()*(6-1)+1);
+					if(guess == document.getElementById("input").value){
+						correct = true;
+						if(guesses == 1){alert("Got it! It took me just "+guesses+" try");}
+						else if(guesses <= 5){alert("Got it! It took me just "+guesses+" tries");}
+						else{alert(guesses+" tries?... I might be stupid.");}
+					} else {
+						guesses += 1;
+					}
+					
+					console.log(guess);
+				}
+			
+			}
+			else{alert("Please only use choose one of these numbers: 1, 2, 3, 4 and 5")}
+		}
+	</script>
+</body>
+
+</html>
