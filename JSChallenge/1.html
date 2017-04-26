@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title></title>
+</head>
+	
+<body>
+<div class="center">
+	<div id="audio_clap">
+	<h1>A</h1>
+	<p>clap</p>
+	</div>
+	
+	<div id="audio_hihat">
+	<h1>S</h1>
+	<p>hihat</p>
+	</div>
+	
+	<div id="audio_kick">
+	<h1>D</h1>
+	<p>kick</p>
+	</div>
+	
+	<div id="audio_openhat">
+	<h1>F</h1>
+	<p>openhat</p>
+	</div>
+	
+	<div id="audio_boom">
+	<h1>G</h1>
+	<p>boom</p>
+	</div>
+	
+	<div id="audio_ride">
+	<h1>H</h1>
+	<p>ride</p>
+	</div>
+	
+	<div id="audio_snare">
+	<h1>J</h1>
+	<p>snare</p>
+	</div>
+	
+	<div id="audio_tom">
+	<h1>K</h1>
+	<p>tom</p>
+	</div>
+	
+	<div id="audio_tink">
+	<h1>L</h1>
+	<p>tink</p>
+	</div>
+</div>
+</body>
+
+<style>
+body{
+	background-image: url(img/bg.jpg);
+}
+div{
+	
+	display: inline-block;
+	width: 150px;
+	height:100px;
+	border: yellow 2px solid transparent;
+	border-radius: 5px;
+	text-align: center;
+	
+	background-color: #82624b;
+		
+	transition: 0.1s;
+}
+
+.center {
+    top: 50%;
+    width:auto;
+    margin-top: -9em; /*set to a negative number 1/2 of your height*/
+    margin-left: 15%; /*set to a negative number 1/2 of your width*/
+    position:fixed;
+}
+</style>
+
+<script>
+
+var audio_boom = new Audio('sounds/boom.wav'), 
+    audio_clap = new Audio('sounds/clap.wav'),
+	audio_hihat = new Audio('sounds/hihat.wav'),
+	audio_kick = new Audio('sounds/kick.wav'),
+	audio_openhat = new Audio('sounds/openhat.wav'),
+	audio_ride = new Audio('sounds/ride.wav'),
+	audio_snare = new Audio('sounds/snare.wav'),
+	audio_tink = new Audio('sounds/tink.wav'),
+	audio_tom = new Audio('sounds/tom.wav');
+	changed = [];
+
+function MyAudio(playFile, idtag){
+	playFile.currentTime = 0;
+	playFile.play();
+	var change = document.getElementById(idtag); 
+	changes = idtag;
+	change.setAttribute("style","display;transform;class","pressed");
+	change.style.backgroundColor = "#9b7153";	
+	change.style.transform = "scale(1.1)";
+	var isThere = 0;
+	
+	for (var y = 0; y <= changed.length; y++){
+		if(changed[y] === idtag){
+			isThere = 1;
+		}
+		else if( y == changed.length && !isThere == 1){
+			isThere = 1;
+			changed.push(idtag);
+		}
+	}
+	
+}
+
+document.onkeydown = function(event) {
+	var key_press = String.fromCharCode(event.keyCode);
+	var key_code = event.keyCode;
+		if (key_code === 65){
+			var playThis = "audio_clap";
+			MyAudio(audio_clap,playThis);
+		} else if (key_code === 83){
+			var playThis = "audio_hihat";
+			MyAudio(audio_hihat, playThis);
+		} else if (key_code === 68){
+			var playThis = "audio_kick";
+			MyAudio(audio_kick, playThis);
+		} else if (key_code === 70){
+			var playThis = "audio_openhat";
+			MyAudio(audio_openhat, playThis);
+		} else if (key_code === 71){
+			var playThis = "audio_boom";
+			MyAudio(audio_boom,playThis);
+		} else if (key_code === 72){
+			var playThis = "audio_ride";
+			MyAudio(audio_ride,playThis);
+		} else if (key_code === 74){
+			var playThis = "audio_snare";
+			MyAudio(audio_snare,playThis);
+		} else if (key_code === 75){
+			var playThis = "audio_tom";
+			MyAudio(audio_tom,playThis);
+		} else if (key_code === 76){
+			var playThis = "audio_tink";
+			MyAudio(audio_tink,playThis);
+		}
+}
+
+document.onkeyup = function(event){
+    var key_press = String.fromCharCode(event.keyCode);
+	var status = document.getElementById('status');
+	var changes = document.getElementById(changed[0]); 
+	
+	for (var y = 0; y <= changed.length; y++){
+		
+	}
+	
+	console.log(changed)
+	changes.setAttribute("style","display;transform;");	
+	changes.style.backgroundColor = "#82624b";
+	changes.style.transform = "scale(1.0)";
+	
+	for(var i = changed.length - 1; i >= 0; i--) {
+		console.log("yo: "+i);
+		console.log(changes);
+		if(changed[i] === changed[0]) {
+			changed.splice(i, 1);
+    }
+}
+}
+
+</script>
+
+</html>
