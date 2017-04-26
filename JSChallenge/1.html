@@ -92,6 +92,7 @@ var audio_boom = new Audio('sounds/boom.wav'),
 	audio_snare = new Audio('sounds/snare.wav'),
 	audio_tink = new Audio('sounds/tink.wav'),
 	audio_tom = new Audio('sounds/tom.wav');
+	audio_hidden = new Audio("sounds/hidden.wav");
 	changed = [];
 
 function MyAudio(playFile, idtag){
@@ -146,6 +147,9 @@ document.onkeydown = function(event) {
 		} else if (key_code === 76){
 			var playThis = "audio_tink";
 			MyAudio(audio_tink,playThis);
+		} else if (key_code === 32){
+			var playThis = "";
+			MyAudio(audio_hidden);
 		}
 }
 
