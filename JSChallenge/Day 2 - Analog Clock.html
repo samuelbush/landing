@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title></title>
+</head>
+
+<body>
+
+	<div class="mainclock">
+		<div class="mainclock-display">
+			<div class="pointer hours-pointer shorty"></div>
+			<div class="pointer minutes-pointer"></div>
+			<div class="pointer seconds-pointer"></div>
+		</div>
+	</div>
+	
+	<style>
+		
+		html {
+			background:#018DED url(https://unsplash.it/1500/1000/?random&blur=50);
+			background-size:cover;
+			font-family:'helvetica neue';
+			text-align: center;
+			font-size: 10px;
+		}
+		
+		body{
+			margin: 0;
+			font-size: 2rem;
+			display: flex;
+			flex: 1;
+			min-height: 100vh;
+			align-items: center;
+		}
+		
+		.mainclock{
+			width: 30rem;
+			height: 30rem;
+			border: 20px solid green;
+			border-radius: 50%;
+			margin: 50px auto;
+			position: relative;
+			padding: 2rem;
+		}
+		
+		.mainclock-display{
+			position: relative;
+			width: 100%;
+			height: 100%;
+			transform: translateY(-3px);
+		}
+		
+		.pointer{
+			background-color: blue;
+			transform-origin: 100%;
+			transform: rotate(90deg);
+			height: 6px;
+			width: 50%;
+			position: absolute;
+			top: 50%;
+			transition: all 0.05s;
+			transition-timing-function: cubic-bezier(0.1, 2.7, 0.77,-0.29);
+		}
+		
+		.shorty{
+			background-color: black !important;
+		}
+	
+	</style>
+	
+	<script>
+		
+		const hoursPointer = document.querySelector(".hours-pointer");
+		const minutesPointer = document.querySelector(".minutes-pointer");
+		const secondsPointer = document.querySelector(".seconds-pointer");
+		
+		function timeWizzard(){
+		
+			const dateNow = new Date();
+			
+			
+			const seconds = dateNow.getSeconds();
+			console.log(seconds);
+			const secondsPointerDegrees = ((seconds/60)*360)+90;
+			secondsPointer.style.transform = `rotate(${secondsPointerDegrees}deg)`;
+			
+			const minutes = dateNow.getMinutes();
+			const minutesPointerDegrees = ((minutes/60)*360)+ ((seconds/60)*6)+90;
+			minutesPointer.style.transform = `rotate(${minutesPointerDegrees}deg)`;
+			
+			const hours = dateNow.getHours();
+			const hoursPointerDegrees = ((hours/12)*360)+ ((minutes/60)*30)+90;
+			hoursPointer.style.transform = `rotate(${hoursPointerDegrees}deg)`;
+		
+		}
+		
+		setInterval(timeWizzard, 1000);
+		
+		timeWizzard();
+		
+	</script>
+
+</body>
+
+</html>
